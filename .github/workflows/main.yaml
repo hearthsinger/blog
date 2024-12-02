@@ -101,4 +101,5 @@ jobs:
           NEOCITIES_USER: ${{ secrets.USERNAME }}
           NEOCITIES_PASS: ${{ secrets.PASSWORD }}
         run: |
-          find blog/ -type f -name *.html -exec echo {} >> $GITHUB_STEP_SUMMARY \;
+          find blog/ -type f -exec curl -F '{}=@{}' 'https://$NEOCITIES_USER:$NEOCITIES_PASS@neocities.org/api/upload' \;
+          curl -F 'css/style.min.css=@{css/style.min.css}' 'https://$NEOCITIES_USER:$NEOCITIES_PASS@neocities.org/api/upload'
