@@ -6,9 +6,9 @@ $highlight-color: #B399A2;
 
 :root,[data-theme="dark"]{
     --bgimg:url('https://hart.moe/assets/img/pattern.png');
-    --bg: $background-color;
-    --text: $text-color;
-    --link: $highlight-color;
+    --bg: #2D3047;
+    --text: #BFBCCB;
+    --link: #B399A2;
 }
 
 @font-face {
