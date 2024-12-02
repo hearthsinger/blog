@@ -12,9 +12,10 @@
     </head>
     <body class="spindrift">
         <h1 class="spindrift-heading">{{ project_name }}</h1>
+        {% if description is defined %}<p class="spindrift-description">{{ description }}</p>{% endif %}
         <ul class="spindrift-pages">
             {% for droplet in droplets | sort(attribute="meta.date" ) %}
-            <li class="spindrift-page"><a href="{{ droplet.meta.path }}">{{ droplet.title }}</a></li>
+            <li class="spindrift-page"><div style="display:flex;justify-content:space-between;"><a href="{{ droplet.meta.path }}">{{ droplet.title }}</a><span> {{ droplet.meta.date }}</span></div></li>
             {% endfor %}
         </ul>
         <p><a href="../index.html"><em>back</em></a></p>

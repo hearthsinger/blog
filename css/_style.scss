@@ -8,7 +8,7 @@ $highlight-color: #B399A2;
     --bgimg:url('https://hart.moe/assets/img/pattern.png');
     --bg: #2D3047;
     --text: #BFBCCB;
-    --link: #B399A2;
+    --highlight: #B399A2;
 }
 
 @font-face {
@@ -24,20 +24,31 @@ $highlight-color: #B399A2;
     max-width: 100%;
 }
 
+.mainpage {
+    margin: 24px auto;
+    max-width: 960px;
+    background-color: var(--bg);
+    padding: 16px;
+    border: 1px solid var(--highlight);
+}
+
 body {
     color: var(--text);
     font-family: 'Rose-Tinted', sans-serif;
     font-size: 1rem;
     max-width: 960px;
-    margin: auto;
     padding: 24px;
     background-color: var(--bg);
-    border: 1px solid color.scale($background-color, $saturation: -30%);
+}
+
+body.spindrift, body.droplet {
+    border: 1px solid var(--highlight);
+    margin: 24px auto;
     border-radius: 4px;
 }
 
 a {
-    color: var(--link);
+    color: var(--highlight);
 }
 
 code {

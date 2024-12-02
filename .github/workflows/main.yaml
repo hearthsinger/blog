@@ -59,7 +59,7 @@ jobs:
         # result of this command and set either ${{ true }} or ${{ false }} as the output,
         # allowing the if in the next step to use the output value directly. The outcome is
         # the same though.
-        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n '/posts/p' | wc -l)" >> $GITHUB_OUTPUT
+        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)/p' | wc -l)" >> $GITHUB_OUTPUT
   build:
     needs: check-changes
     runs-on: ubuntu-latest
@@ -101,4 +101,5 @@ jobs:
           NEOCITIES_PASS: ${{ secrets.NEOCITIES_PASS }}
         run: |
           find blog/ -type f -exec sh -c 'curl -F {}=@{} https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload' \;
+          find / -type f -name "*.html" -maxdepth 1 -exec sh -c 'curl -F {}=@{} https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload' \;
           curl -F css/style.min.css=@css/style.min.css https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload
