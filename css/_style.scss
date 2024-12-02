@@ -1,8 +1,14 @@
+@use "sass:color";
+
+$background-color: #2D3047;
+$text-color: #BFBCCB;
+$highlight-color: #B399A2;
+
 :root,[data-theme="dark"]{
     --bgimg:url('https://hart.moe/assets/img/pattern.png');
-    --bg:'#2D3047';
-    --text:'#BFBCCB';
-    --link:'#B399A2';
+    --bg: $background-color;
+    --text: $text-color;
+    --link: $highlight-color;
 }
 
 @font-face {
@@ -19,7 +25,7 @@ body {
     padding: 24px;
 }
 
-.index, .spindrift {
+.index, html.spindrift, html.droplet {
     background: var(--bg);
     background-image: var(--bgimg);
     padding: 0;
@@ -29,4 +35,12 @@ body {
 
 a {
     color: var(--link);
+}
+
+code {
+    background: color.scale($background-color, $saturation: -45%);
+    border: 1px solid color.scale($background-color, $saturation: -30%);
+    border-radius: 8px;
+    color: #ccc;
+    padding: 0px 4px;
 }
