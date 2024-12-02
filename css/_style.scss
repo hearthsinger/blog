@@ -1,5 +1,5 @@
 :root,[data-theme="dark"]{
-    --bgimg:url('https://hart.moe/assets/img/pattern.png')
+    --bgimg:url('https://hart.moe/assets/img/pattern.png');
     --bg:'#2D3047';
     --text:'#BFBCCB';
     --link:'#B399A2';
@@ -7,7 +7,7 @@
 
 @font-face {
     font-family: 'Rose-Tinted';
-    src: url('https://hart.moe/assets/fonts/Rose-Tinted_Regular_v1.1.ttf')
+    src: url('https://hart.moe/assets/fonts/Rose-Tinted_Regular_v1.1.ttf');
 }
 
 body {
@@ -24,9 +24,9 @@ body {
     background-image: var(--bgimg);
     padding: 0;
     margin: 0;
-    max-width: 100% 
+    max-width: 100%;
 }
 
 a {
-    color: var(--link)
+    color: var(--link);
 }
