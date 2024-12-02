@@ -105,11 +105,11 @@ jobs:
         run: |
           git add blog/*
           git commit -m "Build spindrift pages"
-          git push origin master
+          git push origin main
 
       - name: Upload to neocities
         env: 
           NEOCITIES_USER: ${{ secrets.USERNAME }}
           NEOCITIES_PASS: ${{ secrets.PASSWORD }}
         run: |
-          find blog/ -type f -name *.html -exec echo {}
+          find blog/ -type f -name *.html -exec echo {} >> $GITHUB_STEP_SUMMARY
