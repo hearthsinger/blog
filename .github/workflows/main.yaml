@@ -101,5 +101,5 @@ jobs:
           NEOCITIES_PASS: ${{ secrets.NEOCITIES_PASS }}
         run: |
           find blog/ -type f -exec sh -c 'curl -F {}=@{} https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload' \;
-          find / -type f -name "*.html" -maxdepth 1 -exec sh -c 'curl -F {}=@{} https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload' \;
+          find . -type f -name "*.html" -maxdepth 1 -exec sh -c 'curl -F {}=@{} https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload' \;
           curl -F css/style.min.css=@css/style.min.css https://${NEOCITIES_USER}:${NEOCITIES_PASS}@neocities.org/api/upload
