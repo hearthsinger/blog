@@ -96,17 +96,6 @@ jobs:
           mkdir -p blog
           ./spindrift -t _spindrift_templates -c _spindrift.yaml -s posts -o blog | tail -n 6 >> $GITHUB_STEP_SUMMARY
 
-      - name: Configure git identity
-        run: |
-          git config user.name "spindrift-builder"
-          git config user.email "<>"
-
-      - name: Commit added files
-        run: |
-          git add blog/*
-          git commit -m "Build spindrift pages"
-          git push origin main
-
       - name: Upload to neocities
         env: 
           NEOCITIES_USER: ${{ secrets.USERNAME }}
