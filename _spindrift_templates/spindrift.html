@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html class="spindrift">
+    <head>
+        <title>{{ project_name }}</title>
+
+        <meta charset="utf-8">
+        {% if description is defined %}<meta name="description" content="{{ description }}">{% endif %}
+        {% if author is defined %}<meta name="author" content="{{ author }}"> {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content="spindrift">
+        <link rel="stylesheet" href="../css/style.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    </head>
+    <body class="spindrift">
+        <h1 class="spindrift-heading">{{ project_name }}</h1>
+        <ul class="spindrift-pages">
+            {% for droplet in droplets | sort(attribute="meta.date" ) %}
+            <li class="spindrift-page"><a href="{{ droplet.meta.path }}">{{ droplet.title }}</a></li>
+            {% endfor %}
+        </ul>
+        <p><a href="../index.html"><em>back</em></a></p>
+    </body>
+</html>

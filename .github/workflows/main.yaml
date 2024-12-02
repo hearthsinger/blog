@@ -1,0 +1,106 @@
+name: Build spindrift pages
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matched-files: ${{ steps.diff-files.outputs.matched-files }}
+    steps:
+      - name: Checkout site
+        uses: actions/checkout@v3
+
+      - name: Unshallow repository
+        run: git fetch --prune --unshallow
+
+      - name: Check files
+        id: diff-files
+        # Breakdown of this oneliner:
+        # > git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline
+        #   This returns us some output that looks like this:
+        #
+        #     <COMMIT_HASH> <COMMIT_MESSAGE>
+        #     dir/changed_file1
+        #     dir/changed_file2
+        #     _posts/post.yaml
+        #     ...
+        #
+        # > tail -n +2
+        #   Returns the output above, with the initial commit hash/message line removed:
+        #
+        #     dir/changed_file1
+        #     dir/changed_file2
+        #     _posts/post.yaml
+        #
+        # > sed -n '/_posts/p'
+        #   Returns only those lines that contain `_posts`. We don't use the more obvious
+        #   `grep` here as it exits non-zero when it fails to find a match, and github
+        #   actions run by default with `set -o pipefail`, meaning even though our last
+        #   step of `wc -l` would return 0 in cases where this step returns no output, the
+        #   entire command would fail:
+        #
+        #     _posts/post.yaml
+        #
+        # > wc -l
+        #   Counts the lines in the output:
+        #
+        #     1
+        #
+        # This is then set as output for this step. This step could alternatively check the
+        # result of this command and set either ${{ true }} or ${{ false }} as the output,
+        # allowing the if in the next step to use the output value directly. The outcome is
+        # the same though.
+        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n '/posts/p' | wc -l)" >> $GITHUB_OUTPUT
+  build:
+    needs: check-changes
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-changes.outputs.matched-files != '0' }}
+    steps:
+      - name: Start summary
+        run: echo "## Build Spindrift Pages" >> $GITHUB_STEP_SUMMARY
+
+      - uses: actions/checkout@v3
+
+      - name: Get latest spindrift tag
+        id: get-latest-tag
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: zthart/spindrift
+
+      - name: Report tag
+        run: |
+          echo "Spindrift at version **\`${{ steps.get-latest-tag.outputs.tag }}\`**" >> $GITHUB_STEP_SUMMARY
+
+      - name: Download spindrift
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: zthart/spindrift
+          file: spindrift
+          version: tags/${{ steps.get-latest-tag.outputs.tag }}
+
+      # Runs a set of commands using the runners shell
+      - name: Run spindrift
+        run: |
+          chmod +x spindrift
+          echo "### Spindrift build summary" >> $GITHUB_STEP_SUMMARY
+          ./spindrift -t _spindrift_templates -c _spindrift.yaml -s posts -o blog | tail -n 6 >> $GITHUB_STEP_SUMMARY
+
+      - name: Configure git identity
+        run: |
+          git config user.name "spindrift-builder"
+          git config user.email "<>"
+
+      - name: Commit added files
+        run: |
+          git add static/*
+          git commit -m "Build spindrift pages"
+          git push origin master
