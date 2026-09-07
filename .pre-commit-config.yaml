@@ -8,10 +8,10 @@ repos:
         entry: |
           bash -c 'npm run fix:prettier "${@}"' --
         stages: [pre-commit]
-      - id: run-sass
+      - id: sass
         name: minify css with sass
         language: system
-        file: \.(scss)$
+        files: \.(scss)$
         entry: |
           bash -c 'npm run gen:minify'
         stages: [pre-commit]
