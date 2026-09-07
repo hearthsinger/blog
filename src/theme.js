@@ -24,7 +24,6 @@ function toggleTheme() {
   const nextThemeIdx = KNOWN_THEMES.indexOf(theme) + 1;
   const newTheme = KNOWN_THEMES[nextThemeIdx % KNOWN_THEMES.length];
 
-  console.log(`Clicked\n\tcurr:\t${theme}\n\tnext:\t${newTheme}`);
   window.localStorage.setItem('theme', newTheme);
   const root = document.documentElement;
   root.dataset.scheme = newTheme;
@@ -38,6 +37,13 @@ function toggleTheme() {
   const root = document.documentElement;
   root.dataset.scheme = getCurrentTheme();
 
-  const toggler = document.querySelector('.header-ico img');
-  toggler.addEventListener('click', toggleTheme);
+  document.addEventListener('click', (event) => {
+    // This script is not defered, so the actual target is not in the DOM at the
+    // time we first evaluate it. We want this behavior to avoid theme flashing,
+    // but it requires we rely on the event propagation to handle theme toggling
+    if (!event.target || !event.target.matches('.header-ico img')) {
+      return;
+    }
+    toggleTheme();
+  });
 })();
