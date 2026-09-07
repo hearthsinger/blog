@@ -59,7 +59,7 @@ jobs:
         # result of this command and set either ${{ true }} or ${{ false }} as the output,
         # allowing the if in the next step to use the output value directly. The outcome is
         # the same though.
-        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)|workflows|src|assets/p' | wc -l)" >> $GITHUB_OUTPUT
+        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)|(.*\.css)|workflows|src|assets/p' | wc -l)" >> $GITHUB_OUTPUT
   build:
     needs: check-changes
     runs-on: ubuntu-latest
