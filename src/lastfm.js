@@ -1,7 +1,7 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const res = await fetch('https://ooooo.garden/strawbs/integration/LastFM', {
+  const res = await fetch('https://ooooo.garden/integration/strawbs/LastFM', {
     method: 'GET',
   });
 
