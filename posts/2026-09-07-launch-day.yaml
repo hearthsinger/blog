@@ -1,0 +1,27 @@
+---
+meta:
+  author: hearthsinger
+  date: 2026-09-07
+  tags:
+    - meta
+    - diary
+title: Launch Day
+content: >
+  Hoooooly shit the site is (should be) finally live!! Huge day! I got the ring
+  up and hosted with just myself, should be snagging some friends to jump into
+  it here shortly, and I still need to make a landing page for it. I got around
+  to adding an overall members list API endpoint, but I do need to consume
+  that in some way.
+
+  This is a real short post just cause I want to document the occasion, but yay!
+
+  There are definitely still some rough edges are part of the site that just
+  need more stuff. I have the blog which is easy to keep updating with my 
+  SSG, but I do want to start collecting site badges from around neocities and
+  other parts of the indieweb and hosting them here for folks to explore.
+
+  I also want to look into a gallery page of some sort for my photography, but
+  I have to figure out if I just want to use an existing gallery library or if
+  I should also sit down and roll my own.
+
+  Anyway, now you can read this rather than it sitting on my hard drive!
