@@ -108,6 +108,7 @@ jobs:
           NEOCITIES_USER: strawbs-dot-io
           NEOCITIES_PASS: ${{ secrets.NEOCITIES_PASS }}
         run: |
+          set -x
           files=()
 
           echo "### Searching for candidate files" >> $GITHUB_STEP_SUMMARY
