@@ -59,7 +59,7 @@ jobs:
         # result of this command and set either ${{ true }} or ${{ false }} as the output,
         # allowing the if in the next step to use the output value directly. The outcome is
         # the same though.
-        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)/p' | wc -l)" >> $GITHUB_OUTPUT
+        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)|workflows/p' | wc -l)" >> $GITHUB_OUTPUT
   build:
     needs: check-changes
     runs-on: ubuntu-latest
@@ -100,8 +100,8 @@ jobs:
         run: |
           SHORT_HASH=$(git rev-parse --short=8 HEAD)
           SHORT_DATE=$(date +%F)
-          find . -type f -name "*.html" -exec sh -c 'sed -i s/BUILD_INFO/${SHORT_HASH}/g {}' \;
-          find . -type f -name "*.html" -exec sh -c 'sed -i s/BUILD_DATE/${SHORT_DATE}/g {}' \;
+          find . -type f -name "*.html" -exec sh -c "sed -i s/BUILD_INFO/${SHORT_HASH}/g {}" \;
+          find . -type f -name "*.html" -exec sh -c "sed -i s/BUILD_DATE/${SHORT_DATE}/g {}" \;
 
       - name: Upload to neocities
         env: 
