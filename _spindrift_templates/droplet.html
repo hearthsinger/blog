@@ -1,23 +1,99 @@
-<!DOCTYPE html>
-<html class="droplet">
-    <head>
-        <meta charset="utf-8">
-        <title>{{ title }}</title>
-        <meta name="description" content="">
-        <meta name="author" content="{{ meta.author }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="generator" content="spindrift">
-        <link rel="stylesheet" href="../css/style.min.css" type="text/css" media="all">
-    </head>
-    <body class="droplet">
-        <h2 class="droplet-heading">{{ title }}</h2>
-        {% if meta.date is defined %}
-        <span class="droplet-date">{{ meta.date }} - {{ meta.author }}</span>
-        {% endif %}
-        {{ content }}
-        <div style="display:flex;justify-content:space-between;">
-            <a class="droplet-back" href="index.html"><em>back</em></a>
-            <a class="droplet-back" href="../index.html"><em>home</em></a>
+<!doctype html>
+<html class="droplet" data-scheme="dark">
+  <head>
+    <meta itemprop="ai-content-declaration:version" content="1.0.0" />
+    <meta itemprop="ai-content-declaration:level" content="none" />
+    <meta charset="utf-8" />
+    <title>Strawbs.io | {{ title }}</title>
+    <meta name="description" content="" />
+    <meta name="author" content="{{ meta.author }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="spindrift" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/style.min.css"
+      type="text/css"
+      media="all"
+    />
+    <script src="../src/theme.js" defer></script>
+  </head>
+  <body class="index">
+    <!-- #region full-page header -->
+    <header class="pageheader">
+      <div class="titlebox">
+        <div>
+          <em>Strawbs.io</em>
         </div>
-    </body>
+        <div class="header-ico">
+          ˗ˏˋ <img src="../assets/strawb-ico.gif" width="28" height="28" /> ˎˊ˗
+        </div>
+        <nav class="pagenav">
+          <ul>
+            <li><a href="../index.html">mainpage</a></li>
+            <li><a href="blog/index.html" class="pagenav-curr">blog</a></li>
+            <li><a href="../about.html">about</a></li>
+            <li><a href="../elsewhere.html">elsewhere</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- #endregion full-page header -->
+    <div class="gutters">
+      <div class="mainpage">
+        <div>
+          <h1><em>{{ title }}</em></h1>
+          {% if meta.date is defined %}
+          <h4>{{ meta.date }} - {{ meta.author }}</h4>
+          {% endif %} {{content}}
+          <hr />
+          {% if meta.tags is defined %}
+          <div class="droplet-post-meta">
+            <div class="droplet-post-tags">
+              <h4><em>Tags:</em></h4>
+              {%- for tag in meta.tags | sort -%}
+              <span>{{ tag }}</span>
+              {%- endfor -%}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <a href="index.html"><em>back</em></a>
+          <a href="../index.html"><em>mainpage</em></a>
+        </div>
+      </div>
+      <!-- #region footer container -->
+      <div class="footer">
+        <div>(c) 2026</div>
+        <div class="webring f-center">
+          <div class="f-center">
+            <a href="https://ooooo.garden/strawbs/prev">&lt;</a>
+          </div>
+          <div class="f-center"><a href="https://ooooo.garden">webring</a></div>
+          <div class="f-center">
+            <a href="https://ooooo.garden/strawbs/next">&gt;</a>
+          </div>
+        </div>
+        <div class="f-end">
+          <a href="https://github.com/hearthsinger/blog">BUILD_INFO</a>
+        </div>
+      </div>
+      <!-- #endregion footer container -->
+      <div class="postscript">
+        <span
+          >This site was made without
+          <a href="https://declare-ai.org/1.0.0-alpha1/none.html"
+            >any contribution from a generative AI</a
+          >.
+        </span>
+      </div>
+    </div>
+  </body>
 </html>

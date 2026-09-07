@@ -1,0 +1,40 @@
+---
+meta:
+  author: hearthsinger
+  date: 2026-08-26
+  tags:
+    - hello, world
+    - intro
+    - meta
+title: Are we back?
+content: >
+  This is a revival of a blog that had a grand total of two (2) posts, like 7 
+  days apart, authored nearly two years ago. I am, perhaps delusionally, hoping
+  that this attempt has a slightly better track record.
+
+  This blog is driven by a incredibly limited and basic static site generator
+  that I built bit by bit over uh,,, a few years? The generator itself is
+  open-sourced on my github at [`hearthsinger/spindrift`](https://github.com/hearthsinger/spindrift),
+  although I would caution you against using the thing - it's relatively
+  unwieldy, and only supports a very limited subset of markdown formatting.
+
+  I've had a TODO outstanding on this project for years to support RSS feeds,
+  perhaps that'll be the next little improvement to tackle. I did need to go
+  and add a custom batching filter for the page templating system so that I
+  could more readily leave these posts in rows of a limited size. Writing some
+  rust after not having written any for a couple years really kicked my ass.
+
+  Refocusing on the blog itself, rather than the underlying nightmare code, I
+  really am not certain what exactly I'll post here. I am to spin up a small
+  webring with a few folks and use it as a nice little haven in an unkind
+  internet, but we're all adults with busy lives and jobs and whatnot. I'm
+  almost shocked that I feel the desire to do any basic coding outside of work
+  **at all** these days, but that's a rant for later.
+
+  I think this site will go live once the webring is set up, which means from 
+  the date this is published to the date I make a "hey we did it" post/update
+  the changelog, I will just kinda be pre-seeding the blog with my random
+  thoughts. I will make absolutely zero promises about frequency or topic or
+  what have you, but I will attempt to at least post like, every now and then.
+
+  See you in like, _less_ than 2 years, maybe?

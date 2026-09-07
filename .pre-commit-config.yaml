@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: prettier
+        name: validate formatting
+        language: system
+        files: \.(js|html|md|scss)$
+        entry: |
+          bash -c 'npm run fix:prettier "${@}"' --
+        stages: [pre-commit]

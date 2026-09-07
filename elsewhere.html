@@ -16,8 +16,8 @@
       rel="stylesheet"
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <title>Strawbs.io | about</title>
-    <script src="src/lastfm.js" defer></script>
+    <title>Strawbs.io | elsewhere</title>
+    <script src="src/copy.js" defer></script>
     <script src="src/theme.js" defer></script>
   </head>
   <body class="index">
@@ -34,8 +34,8 @@
           <ul>
             <li><a href="index.html">mainpage</a></li>
             <li><a href="blog/index.html">blog</a></li>
-            <li><a href="about.html" class="pagenav-curr">about</a></li>
-            <li><a href="elsewhere.html">elsewhere</a></li>
+            <li><a href="about.html">about</a></li>
+            <li><a href="elsewhere.html" class="pagenav-curr">elsewhere</a></li>
           </ul>
         </nav>
       </div>
@@ -45,46 +45,44 @@
       <!-- #region hero -->
       <div class="headerbox">
         <span
-          ><h1><em>about</em></h1></span
+          ><h1><em>elsewhere</em></h1></span
         >
-        <img src="assets/about-header.png" />
+        <img src="assets/elsewhere-header.png" />
       </div>
       <!-- #endregion hero -->
       <!-- #region content container -->
       <div class="mainpage">
         <div>
-          <h1><em>Who am I?</em></h1>
+          <h1><em>Offsite Links and Points of Interest</em></h1>
           <p>
-            my name is asteria, it's nice to meet you. i've been on the internet
-            for all of my life, and miss the days of yore when the kind places
-            here were kinder, the people you interacted with friendlier, the
-            desire for connection more genuine. i've built this place to reclaim
-            some of that feeling, as our world heats up, the datacenters expand,
-            and society becomes ever atomized. here there are no algorithms, no
-            advertising, no interests being served beyond my own desire to
-            create and share. i hope you enjoy what you find here, and that it
-            might inspire you to reclaim space for yourself.
+            this page is my digital junk-drawer, of sorts. in addition to links
+            to find me on other platforms, there are also links to other
+            internet oddities and indieweb sites.
           </p>
         </div>
         <div class="horiz">
           <div>
-            <h2><em>Likes</em></h2>
-            <ul>
-              <li>photography</li>
-              <li>coding</li>
-              <li>public transit</li>
-              <li>journaling</li>
-              <li>games / ttrpgs</li>
-            </ul>
+            <h2><em>Here, Take This</em></h2>
+            <div
+              class="noborder"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+              "
+            >
+              <img src="assets/badge.gif" />
+              <div class="codeblock" style="max-width: 320px">
+                <button class="copyable" data-target-id="badge-code">
+                  copy
+                </button>
+                <pre><code id="badge-code">&lt;a href="https://strawbs.io/" target="_blank"&gt;&lt;img src="https://HOTLINKING_IS_BAD/assets/badge.gif" /&gt;&lt;/a&gt;</code></pre>
+              </div>
+            </div>
           </div>
           <div>
-            <h2><em>Now Listening</em></h2>
-            <p id="lastfm-nowlistening">...loading...</p>
-            <p id="lastfm-date">At: the beginning of time</p>
-          </div>
-          <div>
-            <h2><em>Last Updated</em></h2>
-            <p>BUILD_DATE</p>
+            <h2><em>Find Me Elsewhere</em></h2>
+            <p>uhhhhh jk under construction</p>
           </div>
         </div>
       </div>

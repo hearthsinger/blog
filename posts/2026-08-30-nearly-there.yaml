@@ -1,0 +1,46 @@
+---
+meta:
+  author: hearthsinger
+  date: 2026-08-30
+  tags:
+    - meta
+    - devlog
+title: Nearly there...
+content: >
+  We're getting a bit closer to launching the site, which is neat! Largely this
+  has just consisted of polishing some of the (limited) javascript and cleaning
+  the layout/css as some of the pages have been fleshed out. There's also a
+  (very lightly) hidden theme-switcher now! Just start clicking on stuff that
+  isn't an obvious link and you'll find it - or check out all the unminified
+  source for the site (what's this `theme.js`?). 
+
+  The last.fm scrobbles now display in appropriate client-local time, and 
+  nested divs no longer get unintended borders. I've also added a `box-shadow`
+  based accent on the bottom edge of most of the parent display containers.
+
+  The aim has always been to keep the amount of javascript that drives the
+  site to a minimum, and at the moment I'm pretty happy with where things have
+  landed. Beyond the "Now Playing" widget on the [about](https://strawbs.io/about.html)
+  page, javascript drives only the theme switcher (to set data attributes
+  dynamically) and a generic click-to-copy implementation used as a convenience
+  for the embed code for my site badge. It's written s/t any pair of `.copyable`
+  classed attributes will function properly given their target element. Given
+  the minified-at-build time css and minimal JS, I'm going to avoid bundling the
+  page source via `webpack` or something similar for now. Anyone should be able
+  to poke around using browser dev tools to figure out how it all ticks. I don't
+  purport to be the world's best web-designer - graphic design is **not** my
+  passion haha - but I am overall pretty happy with how things have gone.  
+
+  I still have some features for [spindrift](https://github.com/hearthsinger/spindrift)
+  that I'd like to get implemented - I've added the post tags to the index and
+  individual post views, but they're currently not interactable, there's no way
+  to sort/search by post. In the global config object I have a flag to generate
+  an index for posts by tag, but it doesn't do anything right now. I think the
+  easiest apprach is to generate a `/tags/index.html` that acts as an index
+  for every tag posted, sorted by post count or something, and then when you
+  click into each you get sub-indexes of just posts with that tag. Clicking on
+  an individual tag should take you to that tag's index page.
+
+  Shouldn't be terrible to implement all things considered, just some basic 
+  slicing and dicing of the data, but my rust is incredibly (_not a joke_) rusty
+  so it'll take me a minute to get back into the swing of things I bet.

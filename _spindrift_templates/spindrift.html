@@ -1,23 +1,112 @@
-<!DOCTYPE html>
-<html class="spindrift">
-    <head>
-        <title>{{ project_name }}</title>
-
-        <meta charset="utf-8">
-        {% if description is defined %}<meta name="description" content="{{ description }}">{% endif %}
-        {% if author is defined %}<meta name="author" content="{{ author }}"> {% endif %}
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="generator" content="spindrift">
-        <link rel="stylesheet" href="../css/style.min.css" type="text/css" media="all">
-    </head>
-    <body class="spindrift">
-        <h1 class="spindrift-heading">{{ project_name }}</h1>
-        {% if description is defined %}<p class="spindrift-description">{{ description }}</p>{% endif %}
-        <ul class="spindrift-pages">
-            {% for droplet in droplets | sort(attribute="meta.date" ) %}
-            <li class="spindrift-page"><div style="display:flex;justify-content:space-between;"><a href="{{ droplet.meta.path }}">{{ droplet.title }}</a><span> {{ droplet.meta.date }}</span></div></li>
-            {% endfor %}
-        </ul>
-        <p><a href="../index.html"><em>back</em></a></p>
-    </body>
+<!doctype html>
+<html class="spindrift" data-scheme="dark">
+  <head>
+    <title>Strawbs.io | {{ project_name }}</title>
+    <meta itemprop="ai-content-declaration:version" content="1.0.0" />
+    <meta itemprop="ai-content-declaration:level" content="none" />
+    <meta charset="utf-8" />
+    {% if description is defined %}
+    <meta name="description" content="{{ description }}" />
+    {% endif %} {% if author is defined %}
+    <meta name="author" content="{{ author }}" />
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="spindrift" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/style.min.css"
+      type="text/css"
+      media="all"
+    />
+    <script src="../src/theme.js" defer></script>
+  </head>
+  <body class="index">
+    <!-- #region full-page header -->
+    <header class="pageheader">
+      <div class="titlebox">
+        <div>
+          <em>Strawbs.io</em>
+        </div>
+        <div class="header-ico">
+          ˗ˏˋ <img src="../assets/strawb-ico.gif" width="28" height="28" /> ˎˊ˗
+        </div>
+        <nav class="pagenav">
+          <ul>
+            <li><a href="../index.html">mainpage</a></li>
+            <li><a href="blog/index.html" class="pagenav-curr">blog</a></li>
+            <li><a href="../about.html">about</a></li>
+            <li><a href="../elsewhere.html">elsewhere</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- #endregion full-page header -->
+    <div class="gutters">
+      <!-- #region hero -->
+      <div class="headerbox">
+        <span
+          ><h1><em>{{ project_name }}</em></h1></span
+        >
+        <img src="../assets/blog-header.png" />
+      </div>
+      <!-- #endregion hero -->
+      <div class="mainpage">
+        {% set sorted = droplets | sort(attribute="meta.date") %} {% for row in
+        sorted | batch(size=3) | reverse %}
+        <div class="horiz">
+          {% for droplet in row | reverse %}
+          <div class="spindrift-post">
+            <a href="{{ droplet.meta.path }}"
+              ><h3><em>{{ droplet.title }}</em></h3></a
+            >
+            <div class="spindrift-post-meta">
+              <h4>{{ droplet.meta.date }}</h4>
+              {% if droplet.meta.tags is defined %}
+              <div class="spindrift-post-tags truncated">
+                {%- for tag in droplet.meta.tags | sort -%}
+                <span>{{ tag }}</span>
+                {%- endfor -%}
+                <span class="dots">•••</span>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      <!-- #region footer container -->
+      <div class="footer">
+        <div>(c) 2026</div>
+        <div class="webring f-center">
+          <div class="f-center">
+            <a href="https://ooooo.garden/strawbs/prev">&lt;</a>
+          </div>
+          <div class="f-center"><a href="https://ooooo.garden">webring</a></div>
+          <div class="f-center">
+            <a href="https://ooooo.garden/strawbs/next">&gt;</a>
+          </div>
+        </div>
+        <div class="f-end">
+          <a href="https://github.com/hearthsinger/blog">BUILD_INFO</a>
+        </div>
+      </div>
+      <!-- #endregion footer container -->
+      <div class="postscript">
+        <span
+          >This site was made without
+          <a href="https://declare-ai.org/1.0.0-alpha1/none.html"
+            >any contribution from a generative AI</a
+          >.
+        </span>
+      </div>
+    </div>
+  </body>
 </html>

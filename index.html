@@ -1,23 +1,142 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="css/style.min.css" type="text/css" media="all">
-    </head>
-    <body class="index">
-        <div class="mainpage">
-            <h1>Welcome</h1>
-            <p>I'm glad you've found this page. Please take a look around.</p>
-            <nav>
-                <div style="display:flex;justify-content:space-between;">
-                    <a href="blog/index.html">blog</a>
-                    <span>•</span>
-                    <a href="about.html">about</a>
-                    <span>•</span>
-                    <a href="http://zach.hart.moe">social</a>
-                    <span>•</span>
-                    <a href="links.html">links</a>
-                </div>
-            </nav>
+<!doctype html>
+<html data-scheme="dark">
+  <head>
+    <meta itemprop="ai-content-declaration:version" content="1.0.0" />
+    <meta itemprop="ai-content-declaration:level" content="none" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="css/style.min.css"
+      type="text/css"
+      media="all"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <title>Strawbs.io | mainpage</title>
+    <script src="src/theme.js" defer></script>
+    <script src="src/lastfm.js" defer></script>
+  </head>
+  <body class="index">
+    <!-- #region full-page header -->
+    <header class="pageheader">
+      <div class="titlebox">
+        <div>
+          <em>Strawbs.io</em>
         </div>
-    </body>
+        <div class="header-ico">
+          ˗ˏˋ <img src="assets/strawb-ico.gif" width="28" height="28" /> ˎˊ˗
+        </div>
+        <nav class="pagenav">
+          <ul>
+            <li><a href="index.html" class="pagenav-curr">mainpage</a></li>
+            <li><a href="blog/index.html">blog</a></li>
+            <li><a href="about.html">about</a></li>
+            <li><a href="elsewhere.html">elsewhere</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <!-- #endregion full-page header -->
+    <div class="gutters">
+      <!-- #region hero -->
+      <div class="headerbox">
+        <span
+          ><h1><em>mainpage</em></h1></span
+        >
+        <img src="assets/mainpage-header.png" />
+      </div>
+      <!-- #endregion hero -->
+      <!-- #region content container -->
+      <div class="mainpage">
+        <div>
+          <h1><em>Hello, World!</em></h1>
+          <p>
+            welcome to my corner of the internet! click around and find yourself
+            at home. this site is hand-spun html and css, and is best viewed on
+            a full-definition screen, or larger. some javascript may be
+            necessary to view content on this page.
+          </p>
+        </div>
+        <div class="horiz">
+          <div>
+            <h2><em>Right Now</em></h2>
+            <span><strong>hearthsinger</strong>...</span>
+            <ul style="column-count: 1">
+              <li>
+                <span>
+                  <strong>feels</strong>
+                  <a href="https://www.imood.com/users/hearthsinger">
+                    <img
+                      src="https://moods.imood.com/display/uname-hearthsinger/fg-bfbccb/trans-1/imood.gif"
+                    />
+                  </a>
+                </span>
+              </li>
+              <li>
+                <span>
+                  is <strong>listening</strong> to
+                  <span id="lastfm-nowlistening">...loading...</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="new">
+            <h2><em>Changelog</em></h2>
+            <ul>
+              <li>2026-09-07: Publish Date!</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h3><em>ooooo.garden</em></h3>
+          <p>
+            <strong>Strawbs.io</strong> is one of the founding sites of the
+            <a href="https://ooooo.garden">ooooo.garden</a> (rings dot garden)
+            webring. created in mid-2026 as a response to the algorithmification
+            of everything, the rise of ai slop and hyper-centralization of
+            information and platforms on the internet. we're a small but growing
+            ring, looking for more like-minded <strong>blogs</strong>,
+            <strong>personal sites</strong>, and
+            <strong>indieweb</strong> travellers. browse the ring using the
+            footer of this page, or view it's members and information
+            <a href="https://ooooo.garden/members">here</a>. to join, submit
+            your site and a short blurb in a pull request at
+            <a href="https://github.com/hearthsinger/webring"
+              >the ring's repository</a
+            >.
+          </p>
+        </div>
+      </div>
+      <!-- #endregion content container -->
+      <!-- #region footer container -->
+      <div class="footer">
+        <div>(c) 2026</div>
+        <div class="webring f-center">
+          <div class="f-center">
+            <a href="https://ooooo.garden/strawbs/prev">&lt;</a>
+          </div>
+          <div class="f-center"><a href="https://ooooo.garden">webring</a></div>
+          <div class="f-center">
+            <a href="https://ooooo.garden/strawbs/next">&gt;</a>
+          </div>
+        </div>
+        <div class="f-end">
+          <a href="https://github.com/hearthsinger/blog">BUILD_INFO</a>
+        </div>
+      </div>
+      <!-- #endregion footer container -->
+      <div class="postscript">
+        <span
+          >This site was made without
+          <a href="https://declare-ai.org/1.0.0-alpha1/none.html"
+            >any contribution from a generative AI</a
+          >.
+        </span>
+      </div>
+    </div>
+  </body>
 </html>

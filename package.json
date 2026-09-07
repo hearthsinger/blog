@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "gen-css": "sass css/_style.scss:css/style.min.css --style compressed",
-    "test": "open -a Firefox -n --args \"file://$INIT_CWD/index.html\" & sass --watch css/_style.scss:css/style.min.css --style compressed"
+    "test": "xdg-open \"file://$INIT_CWD/index.html\" & sass --watch css/_style.scss:css/style.min.css --style compressed",
+    "fix:prettier": "npm run lint:prettier -- -w",
+    "lint:prettier": "prettier --config .prettierrc --check"
   },
   "repository": {
     "type": "git",
@@ -23,5 +25,8 @@
   "homepage": "https://github.com/zthart/blog#readme",
   "dependencies": {
     "sass": "^1.81.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6"
   }
 }
