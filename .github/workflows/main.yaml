@@ -18,9 +18,8 @@ jobs:
     steps:
       - name: Checkout site
         uses: actions/checkout@v6
-
-      - name: Unshallow repository
-        run: git fetch --prune --unshallow
+        with:
+          fetch-depth: 0
 
       - name: Check files
         id: diff-files
@@ -60,10 +59,25 @@ jobs:
         # allowing the if in the next step to use the output value directly. The outcome is
         # the same though.
         run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)|(.*\.css)|workflows|src|assets/p' | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Check commit
+        id: check-commit
+        run: |
+          MESSAGE=$(git log -1 --format=%s)
+          SCOPE=$(echo "${MESSAGE}" |sed -n 's/^[^ (]*(\([^)]*\)).*/\1/p')
+
+          echo "Detected scope: **\`${SCOPE}\`**"
+
+          if [ ${SCOPE} = 'nopush' ]; then
+            echo "nopush=true" >> $GITHUB_OUTPUT
+          else
+            echo "nopush=false" >> $GITHUB_OUTPUT
+          fi
+
   build:
     needs: check-changes
     runs-on: ubuntu-latest
-    if: ${{ needs.check-changes.outputs.matched-files != '0' }}
+    if: ${{ needs.check-changes.outputs.matched-files != '0' && needs.check-changes.outputs.nopush == 'false' }}
     steps:
       - name: Start summary
         run: echo "## Build Spindrift Pages" >> $GITHUB_STEP_SUMMARY
@@ -121,7 +135,7 @@ jobs:
           echo "${clean[@]}" | tr ' ' '\n' | pr -4 -t -w 120 >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
-          echo "## Upload Results"
+          echo "## Upload Results" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           curl -sS -H "Authorization: Bearer ${NEOCITIES_PASS}" ${files[@]} "https://neocities.org/api/upload" | tail -n 4 >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
