@@ -118,6 +118,10 @@ jobs:
             clean+=("${remote_path}")
           done < <({ find blog/ -type f; find assets/ -type f; find src/ -type f; find . -maxdepth 1 -type f -name "*.html"; find . -maxdepth 1 -type f -name "*.ico"; find . -type f -name "*.min.css"; })
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "${clean[@]}" | tr ' ' '\n' | pr -3 -t >> $GITHUB_STEP_SUMMARY
+          echo "${clean[@]}" | tr ' ' '\n' | pr -4 -t >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+          echo "## Upload Results"
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           curl -sS -H "Authorization: Bearer ${NEOCITIES_PASS}" ${files[@]} "https://neocities.org/api/upload" | tail -n 4 >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
