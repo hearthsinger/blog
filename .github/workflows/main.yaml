@@ -81,7 +81,7 @@ jobs:
           echo "Spindrift at version **\`${{ steps.get-latest-tag.outputs.tag }}\`**" >> $GITHUB_STEP_SUMMARY
 
       - name: Download spindrift
-        uses: dsaltares/fetch-gh-release-asset@master
+        uses: ash-shepard/fetch-gh-release-asset@v1.0.0
         with:
           repo: hearthsinger/spindrift
           file: spindrift
@@ -118,7 +118,7 @@ jobs:
             clean+=("${remote_path}")
           done < <({ find blog/ -type f; find assets/ -type f; find src/ -type f; find . -maxdepth 1 -type f -name "*.html"; find . -maxdepth 1 -type f -name "*.ico"; find . -type f -name "*.min.css"; })
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "${clean[@]}" | tr ' ' '\n' | pr -4 -t >> $GITHUB_STEP_SUMMARY
+          echo "${clean[@]}" | tr ' ' '\n' | pr -4 -t -w 120 >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
 
           echo "## Upload Results"
