@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matched-files: ${{ steps.diff-files.outputs.matched-files }}
+      nopush: ${{ steps.check-commit.outputs.nopush }}
     steps:
       - name: Checkout site
         uses: actions/checkout@v6
@@ -65,8 +66,8 @@ jobs:
         run: |
           MESSAGE=$(git log -1 --format=%s)
           SCOPE=$(echo "${MESSAGE}" |sed -n 's/^[^ (]*(\([^)]*\)).*/\1/p')
-
-          echo "Detected scope: **\`${SCOPE}\`**"
+          echo "## Preflight"
+          echo "Detected scope: **\`${SCOPE}\`**" >> $GITHUB_STEP_SUMMARY
 
           if [ ${SCOPE} = 'nopush' ]; then
             echo "nopush=true" >> $GITHUB_OUTPUT
