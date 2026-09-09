@@ -1,0 +1,108 @@
+---
+meta:
+  author: hearthsinger
+  date: 2026-09-09
+  tags:
+    - devlog
+    - meta
+title: To Shave a Yak
+content: |
+  It is very likely because I've been poisoned by my job and just have some
+  strange desire to automate _everything_ I possibly can, but I think in the
+  endless pursuit of making shortcuts and scripts to do busy work I may meet
+  some of my desires for the longevity of this site. 
+
+  My static site generator [spindrift](https://github.com/hearthsinger/spindrift)
+  lacks **many** features, and I can't quite figure out whether my ethos there
+  is that it simply _shouldn't_ have those features, or whether I'm just being
+  lazy and would rather write some bash than jump back into the Rust weeds.
+  Today's missing feature is that there is no quick way to run a command and 
+  just be writing a post. Initially, the thought process was that writing yaml
+  is quick and easy and surely nobody is going to get bored of having to
+  remember what the post keys are and what values I used last time and what was
+  that tag that I used on that one post.........
+
+  I took a little time today to solve the very first part of that as a one-off
+  via a bash script in the blog repo, lol.
+
+
+  ```
+  asteria@caprice:~/projects/blog/scripts|main⚡ ⇒  ./gen-post "Hi mom\!" -a "Your mom" -t one -t two
+  Generating new droplet from configuration:
+      Title: Hi mom!
+      Author: Your mom
+      Date: 2026-09-08
+      Tags: one two
+
+      Filename: 2026-09-08-hi-mom.yaml
+
+  Wrote out 112 bytes:
+      ---
+      meta:
+        author: Your mom
+        date: 2026-09-08
+        tags:
+          - one
+          - two
+      title: Hi mom!
+      content: lorem ipsum
+  ```
+
+  Look at that! Nice little quick invocation to save like, 20-30 keystrokes. Cool!
+
+  I **wanted** to write this post to show off the script I had written to bootstrap
+  the yaml of a post rather than make this a functionality or cli tool of 
+  `spindrift`, when I realized that I never got around to adding support of 
+  markdown-style codeblocks. Damn. You might notice that there _is_ a codeblock
+  in this post - did I manually edit it in, perhaps?
+
+  In fact, not at all. Spindrift now parses yaml for markdown more intelligently, 
+  first looking for what I have taken to calling "unsplittable vertical sections" (i.e. codeblocks), where 
+  newline whitespace needs to be preserved, then greedily parses the remaining
+  content as blocks that can be disturbed along the vertical axis of the page
+  to layout horizontally in their container as needed. 
+
+  This does require, or encourage perhaps, that the `content` key of the post 
+  utilize yaml's "literal block scalar" (`content: |\n`) behavior for the post, rather than the 
+  "folding block scalar" (`content: >\n`) so that we don't accidentally lose
+  important newline characters _internal_ to a codeblock. 
+
+  Once we've split our content string into the chunks we care about, removing
+  the whitespace and newlines we **don't** care to keep _outside of_ our unsplittable
+  document chunks, we move on to html-escaping, and finally parsing markdown
+  into html elements. This is all still done with some basic string operations
+  and some painstakingly assembled regular expressions.
+
+  ```
+  ## et viola
+  
+  we now have codeblocks!!
+
+  * These can be produced with the standard markdown:
+
+  \```[optional language]
+  some content
+  (you can get codeblocks within codeblocks for examples like this
+  by escaping the first \` as \\`)
+  \```
+
+  * and produce the following html output:
+
+  <pre class="droplet-codeblock"><code>some content
+  (you can get codeblocks within codeblocks for examples like this
+  by escaping the first \` as \\`)</code></pre>
+
+  !!!There is a catch!!!
+
+  Currently, the nice single-escaped backtick logic we can rely on
+  above clashes with other markdown formatting we might not want
+  in a code block. For example, there's no way to show you the
+  markdown syntax for **bolded text**, _sigh_.
+
+  I'll fix that later...
+  ```
+
+  The next follow-up will be exposing the language tag provided to the codeblock
+  as a data attribute on the `<code>` element so that you can configure syntax 
+  highlighters if you would so desire!
+

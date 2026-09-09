@@ -6,7 +6,7 @@ meta:
     - meta
     - devlog
 title: Nearly there...
-content: >
+content: |
   We're getting a bit closer to launching the site, which is neat! Largely this
   has just consisted of polishing some of the (limited) javascript and cleaning
   the layout/css as some of the pages have been fleshed out. There's also a

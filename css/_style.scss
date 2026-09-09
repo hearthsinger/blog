@@ -432,7 +432,8 @@ div.f-end {
 
 // #region copy styles
 
-.codeblock {
+.codeblock,
+.droplet-codeblock {
   position: relative;
   background: color.scale($background-color, $saturation: -45%);
   border: 1px solid var(--highlight);

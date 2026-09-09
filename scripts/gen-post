@@ -1,0 +1,138 @@
+#!/usr/bin/env zsh
+
+INVOKED=$(basename "${0}")
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+usage() {
+    cat << EOF >&2
+
+Usage: $INVOKED <title> [-h|--help] [-d|--date DATE] [-a|--author AUTHOR] [-t|--tag TAG [-t TAG]...] 
+
+Arguments:
+    title:          The title for this post
+
+Optionsk:
+    -d --date       A datestring to use (default: `date +%F`)
+    -a --author     The author to use (default: `whoami`)
+    -t --tag        One or more tags for the post
+    -h --help       Print this message and exit
+EOF
+}
+
+TAGS=()
+DATE=$(date +%F)
+AUTHOR=$(whoami)
+
+parse() {
+    if [[ $# -lt 1 || ${1} == -* && ${1} != -h && ${1} != --help ]]; then
+        echo "Error: must be provided a title as the first positional arg." >&2
+        usage
+        exit 1
+    elif [[ ${1} != -h && ${1} != --help ]]; then
+        TITLE="${1}"
+        shift
+    fi
+
+    while [[ $# -gt 0 ]]; do
+        case "${1}" in 
+            -h|--help)
+                usage
+                exit 0;
+                ;;
+            -d|--date)
+                if [[ -n "${2}" && "${2}" != -* ]]; then
+                    DATE=${2}
+                    shift 2
+                else
+                   echo "Error: invalid argument for ${1}: '${2}'" >&2
+                   usage
+                   exit 1
+                fi
+                ;;
+            -a|--author)
+                if [[ -n "${2}" && "${2}" != -* ]]; then
+                    AUTHOR=${2}
+                    shift 2
+                else
+                    echo "Error: invalid argument for ${1}: '${2}'" >&2
+                    usage
+                    exit 1
+                fi
+                ;;
+            -t|--tag)
+                if [[ -n "${2}" && "${2}" != -* ]]; then
+                    TAGS+=("${2}")
+                    shift 2
+                else
+                    echo "Error: invalid argument for ${1}: '${2}'" >&2
+                    usage
+                    exit 1
+                fi
+                ;;
+            *)
+                echo "Error: unknown argument: '${1}'" >&2
+                usage
+                exit 1
+                ;;
+        esac
+    done
+}
+
+config() {
+    cat << EOF >&1
+Generating new droplet from configuration:
+    Title: ${TITLE}
+    Author: ${AUTHOR}
+    Date: ${DATE}
+    Tags: ${TAGS[@]}
+
+    Filename: ${FILENAME}
+
+EOF
+}
+
+# Parse our command line args
+parse ${@}
+
+# Format some vals based on said args
+SKEWERED_TITLE=$(echo "${TITLE}" | tr '[:upper:]' '[:lower:]' | sed 's/[^0-9a-z ]//g' | tr ' ' '-')
+FILENAME=$(echo "${DATE}-${SKEWERED_TITLE}.yaml")
+
+# Print our config for sanity
+config
+
+# move to the git root regardless of where we are
+cd $GIT_ROOT
+
+## Our yq command to create the document
+AUTHOR=${AUTHOR} \
+    DATE=${DATE} \
+    TITLE=${TITLE} \
+    yq -n '
+  {
+    "meta": {
+      "author": strenv(AUTHOR),
+      "date": env(DATE),
+      "tags": []
+    },
+    "title": strenv(TITLE),
+    "content": "lorem ipsum"
+  }
+' > posts/${FILENAME}
+
+# no easy way for the bash array to make it into the above, so do it manually
+for tag in "${TAGS[@]}"; do
+    ITEM=$tag yq -i '.meta.tags += strenv(ITEM)' posts/${FILENAME}
+done
+
+# yq doesn't preserve the document header
+sed -i '1i ---' posts/${FILENAME}
+
+bytes=$(wc -c < posts/${FILENAME})
+
+cat << EOF >&1
+Wrote out ${bytes} bytes:
+$(cat posts/${FILENAME} | awk '{print "    " $0}')
+EOF
+
+exit 0
