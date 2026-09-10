@@ -106,3 +106,9 @@ content: |
   as a data attribute on the `<code>` element so that you can configure syntax 
   highlighters if you would so desire!
 
+  **Errata**: The codeblock above mentions that I can't show the bold/italic
+  markdown syntax within the codeblock syntax. This was a visual gag because
+  the text was simply _styled_ that way. I retooled the parsing logic for
+  content chunks to apply basic character escaping early to all blocks, keeping
+  the behavior for `\\``, while applying text and link formatting only to
+  non-codeblock chunks. Neat!

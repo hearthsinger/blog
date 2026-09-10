@@ -450,6 +450,10 @@ div.f-end {
     margin: var(--space-none);
   }
 
+  & > code {
+    padding: var(--space-none);
+  }
+
   &:hover {
     button.copyable {
       visibility: visible;
