@@ -1,9 +1,12 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const res = await fetch('https://ooooo.garden/integration/strawbs/LastFM', {
-    method: 'GET',
-  });
+  const res = await fetch(
+    'https://api.ooooo.garden/integration/strawbs/LastFM',
+    {
+      method: 'GET',
+    },
+  );
 
   if (!res.ok) {
     console.error('Failed to fetch nowlistening data');
