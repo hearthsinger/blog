@@ -1,0 +1,62 @@
+---
+meta:
+  author: hearthsinger
+  date: 2026-09-20
+  tags:
+    - devlog
+    - ooooo
+title: On "Rings"
+content: |
+  This post is ever so slightly delayed, but the _Rings_ webring is officially
+  live and [accepting new members](https://ooooo.garden)! I want to write a bit
+  about some of the goals for _Rings_ beyond the basic webring functionality.
+
+  A goal I have for _Rings_, and a primary reason that the ring requires a
+  backend (as opposed to a more common shared client-side js snippet), is for
+  it to serve as a common/shared set of tools that its members can use (and
+  contribute to). The first and reference example here is actually the
+  implementation of the "**Now Playing**" widget this site uses on both the
+  [mainpage](https://strawbs.io) and [about](https://strawbs.io/about) pages.
+
+  Inspection of the script source for this site reveals that the client-side
+  javascript pulls no data from Last.FM directly, instead querying _Rings'_
+  backend services. A similar query can be made with cURL:
+
+  ```sh
+  curl -s https://api.ooooo.garden/integration/strawbs/LastFM
+  ```
+
+  Looking at the response here shows us a pretty clean single-track response
+  returned in a far more pragmatic JSON format than the XML-as-JSON response
+  supported natively by the Last.FM API.
+
+  ```json
+  {
+     "album" : "Volumes: One - Selections From Music Concerts 2019-2023 Bon Iver 6 Piece Band",
+     "artist" : "Bon Iver",
+     "date" : "17 Sep 2026, 20:09",
+     "name" : "P.D.L.I.F. – Red Hill Auditorium, Perth, AU. Feb 26 2023",
+     "url" : "https://www.last.fm/music/Bon+Iver/_/P.D.L.I.F.+%E2%80%93+Red+Hill+Auditorium,+Perth,+AU.+Feb+26+2023"
+  }
+  ```
+
+  On top of all of this, this is a public endpoint - all calls to the LastFM
+  API require authentication of some sort, at minimum an API key that can perform
+  read-only opertions on its own, or a combo API key/secret that are required
+  for user-scoped write access. Rather than exposing an API key in client-side
+  js (even _if_ that key is read-only), rings allows its members to configure
+  a Last.FM connection simply by providing their LastFM username with their
+  member configuration. We'll provide a quick reference JS snippet for you to
+  get easily up and running without the need to setup a Last.FM API account or 
+  manage any keys.
+
+  Now, it should be said: The "blessed" way to achieve something like this would
+  be for _Rings_ to configure an OAuth-based application and have members go 
+  and complete an OAuth consent flow, allowing Rings to mint user credentials
+  on their behalf on the fly. And hey - if you join the ring and want to get 
+  that set up? We'll happily accept your change and configure callback handling
+  in our integration framework!
+
+  For now, though - join the ring and provide your username, and rip the JS
+  to fetch your most recently scrobbled trick right off [this page](https://strawbs.io/).
+  I won't tell anyone!
