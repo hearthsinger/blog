@@ -226,7 +226,7 @@ div.f-end {
   flex-direction: column;
   row-gap: var(--space-md);
 
-  ul {
+  ul:not(.single) {
     column-count: 2;
   }
 
