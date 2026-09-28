@@ -114,6 +114,11 @@ html.droplet {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    row-gap: var(--space-sm);
+  }
 }
 
 .titlebox > * {
@@ -354,6 +359,11 @@ div.f-end {
   column-gap: var(--space-md);
   padding: var(--space-none);
 
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    row-gap: var(--space-md);
+  }
+
   & > div {
     position: relative;
     flex: 1;
@@ -374,6 +384,8 @@ div.f-end {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   font-size: 12px;
 }
 
