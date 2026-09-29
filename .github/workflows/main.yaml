@@ -63,7 +63,7 @@ jobs:
         # result of this command and set either ${{ true }} or ${{ false }} as the output,
         # allowing the if in the next step to use the output value directly. The outcome is
         # the same though.
-        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)|(.*\.css)|workflows|src|assets/p' | wc -l)" >> $GITHUB_OUTPUT
+        run: echo "matched-files=$(git log HEAD^1..HEAD --raw --no-decorate --name-only --pretty=oneline | tail -n +2 | sed -n -r '/posts|(.*\.html)|(.*\.css)|(.*\.txt)|workflows|src|assets/p' | wc -l)" >> $GITHUB_OUTPUT
 
       - name: Check commit
         id: check-commit
@@ -137,7 +137,7 @@ jobs:
             remote_path="${file#./}"
             files+=("-F" "${remote_path}=@${file}")
             clean+=("${remote_path}")
-          done < <({ find blog/ -type f; find assets/ -type f; find src/ -type f; find . -maxdepth 1 -type f -name "*.html"; find . -maxdepth 1 -type f -name "*.ico"; find . -type f -name "*.min.css"; })
+          done < <({ find blog/ -type f; find assets/ -type f; find src/ -type f; find . -maxdepth 1 -type f -name "*.html"; find . -maxdepth 1 -type f -name "*.txt"; find . -maxdepth 1 -type f -name "*.ico"; find . -type f -name "*.min.css"; })
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
           echo "${clean[@]}" | tr ' ' '\n' | pr -4 -t -w 120 >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY

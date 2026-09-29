@@ -1,0 +1,19 @@
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+User-agent: Bytespider
+User-agent: Amazonbot
+User-agent: cohere-ai
+User-agent: Diffbot
+User-agent: CCBot
+User-agent: Omgili
+User-agent: PerplexityBot
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: *
+Content-Signal: ai-train=no, search=yes, ai-input=no
+Allow: /
