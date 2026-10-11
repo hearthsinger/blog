@@ -82,11 +82,6 @@ $content-width: $spacing-base * 3 * 96;
 
 // #endregion native-css vars
 
-@font-face {
-  font-family: 'Rose-Tinted';
-  src: url('https://hart.moe/assets/fonts/Rose-Tinted_Regular_v1.1.ttf');
-}
-
 .index,
 html.spindrift,
 html.droplet {
@@ -350,6 +345,17 @@ div.f-end {
   h3::after {
     content: '┄';
   }
+
+  @media (max-width: 1024px) {
+    h1::after,
+    h3::after {
+      content: '╳';
+    }
+
+    h2::after {
+      content: '┼';
+    }
+  }
 }
 
 .mainpage > div.horiz {
@@ -425,7 +431,6 @@ div.f-end {
   position: relative;
   color: var(--bg);
   overflow: hidden;
-  height: 320px; // not sure why but without this there's just 4 random pixels sitting around
   // border-radius: var(--space-sm);
   box-shadow: var(--space-none) var(--space-xs) var(--highlight);
 
@@ -437,6 +442,12 @@ div.f-end {
     * {
       margin: var(--space-none);
     }
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 }
 
